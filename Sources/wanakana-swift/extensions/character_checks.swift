@@ -35,6 +35,11 @@ public extension Character {
         guard let code = self.utf16int else { return false }
         return code == PROLONGED_SOUND_MARK
     }
+    /// Returns true if char is '・'
+    var isSlashDot: Bool {
+        guard let code = self.utf16int else { return false }
+        return code == KANA_SLASH_DOT
+    }
     
     
     //MARK: - Japanese Checks

@@ -7,15 +7,6 @@
 
 import Foundation
 
-//export const DEFAULT_OPTIONS = {
-//  useObsoleteKana: false,
-//  passRomaji: false,
-//  upcaseKatakana: false,
-//  ignoreCase: false,
-//  IMEMode: false,
-//  romanization: ROMANIZATIONS.HEPBURN,
-//}
-
 // CharCode References
 // http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
 // http://unicode-table.com

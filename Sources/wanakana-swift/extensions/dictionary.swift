@@ -8,7 +8,7 @@
 import Foundation
 
 extension Dictionary {
-    func merge(dict: [Key: Value]) -> [Key: Value] {
+    func merge(_ dict: [Key: Value]) -> [Key: Value] {
         var newDict = self
         for (k, v) in dict {
             newDict.updateValue(v, forKey: k)

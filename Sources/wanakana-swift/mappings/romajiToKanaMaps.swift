@@ -95,8 +95,8 @@ let SMALL_LETTERS = [
     "wa": "ゎ",
     "ka": "ヵ",
     "ke": "ヶ",
-]   .merge(dict: SMALL_Y)
-    .merge(dict: SMALL_VOWELS)
+]   .merge(SMALL_Y)
+    .merge(SMALL_VOWELS)
 
 // don"t follow any notable patterns
 let SPECIAL_CASES = [

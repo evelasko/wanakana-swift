@@ -8,7 +8,9 @@
 import Foundation
 
 public extension Character {
+    
     //MARK: - Helpers
+    
     /// Returns the integer representation of the first code unit of the character if available
     var utf16int: Int? {
         guard let codeUnit = self.utf16.first else { return nil }
@@ -23,6 +25,7 @@ public extension Character {
         guard let safeCode = self.utf16int else { return false }
         return [start, end].some(value: safeCode)
     }
+    
     /// Check if character is in unicode range
     /// - Parameter range: An array containing at least two integer values e.g.:[0x3040, 0x309f]
     /// - Returns: true if character is in range between first and last integer of the array
@@ -35,45 +38,54 @@ public extension Character {
         guard let code = self.utf16int else { return false }
         return code == PROLONGED_SOUND_MARK
     }
+    
     /// Returns true if char is '・'
     var isSlashDot: Bool {
         guard let code = self.utf16int else { return false }
         return code == KANA_SLASH_DOT
     }
     
-    
     //MARK: - Japanese Checks
+    
     /// Check if character is hiragana
     var isHiragana: Bool {
         self.isLongDash ||
         self.isInUnicodeRange( start: HIRAGANA_START, end: HIRAGANA_END)
     }
+    
     /// Check if the character is katakana
     var isKatakana: Bool {
+        self.isLongDash ||
         self.isInUnicodeRange(start: KATAKANA_START, end: KATAKANA_END)
     }
+    
     /// Check if the character is  a kana
     var isKana: Bool {
         self.isHiragana || self.isKatakana
     }
+    
     /// Check if the character is kanji
     var isKanji: Bool {
         self.isInUnicodeRange(start: KANJI_START, end: KANJI_END)
     }
+    
     /// Check if the character is either kanji or a kana
     var isJapanese: Bool {
         JAPANESE_RANGES.some(value: self.utf16int)
     }
+    
     /// Check if the character is a half width or a japanese punctuation
     var isJapanesePunctuation: Bool {
         String(self).hasHalfWidthOrPunctuation
     }
+    
     /// Check if is a kanji radical
     var isKanjiRadical: Bool {
         String(self).range(
             of: #"[\x{2E80}-\x{2FD5}]"#,
             options: .regularExpression) != nil
     }
+    
     /// Returns true if the character is Romaji
     var isRomaji: Bool {
         ROMAJI_RANGES.some(value: self.utf16int)
@@ -83,4 +95,27 @@ public extension Character {
         guard let code = self.utf16int else { return false }
         return code == KANA_SLASH_DOT
     }
+    
+    //MARK: - Conversions
+    
+    /// If character is katakana returns the hiragana value, otherwise returns self
+    var asHiragana: Character {
+        if !self.isKatakana { return self }
+        return fromCharCode(
+            String(self).firstCharCode -
+                "ァ".firstCharCode +
+                "ぁ".firstCharCode
+        ).first!
+    }
+    
+    /// If character is hiragana returns the katakana value, otherwise returns self
+    var asKatakana: Character {
+        if !self.isHiragana { return self }
+        return fromCharCode(
+            String(self).firstCharCode -
+                "ぁ".firstCharCode +
+                "ァ".firstCharCode
+        ).first!
+    }
+    
 }

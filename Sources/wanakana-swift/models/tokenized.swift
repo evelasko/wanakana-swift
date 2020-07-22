@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Tokenized {
-    let hiragana: String
-    let katakana: String
-    let romaji: String
+    public let hiragana: String
+    public let katakana: String
+    public let romaji: String
 }

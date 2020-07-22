@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Tokenized {
+public struct Tokenized: Hashable {
     public let hiragana: String
     public let katakana: String
     public let romaji: String
